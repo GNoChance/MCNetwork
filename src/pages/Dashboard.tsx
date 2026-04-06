@@ -5,17 +5,13 @@ import { PlayerSkin3D } from '@/components/skin/PlayerSkin3D'
 import { useServers } from '@/hooks/useServers'
 import { formatDate, formatDuration } from '@/lib/utils'
 import styles from './Dashboard.module.css'
+import type { Server } from '@/hooks/useServers'
 
-// Données mockées pour l'instant — à remplacer par l'API Spring Boot
-const MOCK_USERNAME = 'Steve'
-const MOCK_SKIN_URL = '/skins/link-botw-sequel.png'
-
-const MOCK_HISTORY = [
-  { id: 1, server: 'Paris-01',    date: new Date(Date.now() - 1000 * 60 * 30).toISOString(),        duration: 134 },
-  { id: 2, server: 'Lyon-02',     date: new Date(Date.now() - 1000 * 60 * 60 * 14).toISOString(),   duration: 45  },
-  { id: 3, server: 'Marseille-03',date: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),   duration: 90  },
-  { id: 4, server: 'Paris-01',    date: new Date(Date.now() - 1000 * 60 * 60 * 72).toISOString(),   duration: 182 },
-]
+const storedUsername = localStorage.getItem('username') ?? 'Joueur'
+const storedUuid     = localStorage.getItem('uuid') ?? ''
+const skinUrl        = storedUuid
+  ? `https://crafatar.com/skins/${storedUuid}?overlay`
+  : '/skins/SkinSteve.png'
 
 type AnimType = 'walk' | 'run' | 'idle'
 
@@ -25,7 +21,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.layout}>
-      <Navbar username={MOCK_USERNAME} />
+      <Navbar username={storedUsername} />
       <div className={styles.body}>
         <Sidebar />
         <main className={styles.main}>
@@ -33,7 +29,7 @@ export default function Dashboard() {
           {/* Hero — skin 3D + infos joueur */}
           <section className={styles.hero}>
             <div className={styles.skinWrapper}>
-              <PlayerSkin3D skinUrl={MOCK_SKIN_URL} width={130} height={220} animation={anim} />
+              <PlayerSkin3D skinUrl={skinUrl} width={130} height={220} animation={anim} />
               <div className={styles.animControls}>
                 {(['walk', 'run', 'idle'] as AnimType[]).map((a) => (
                   <button
@@ -48,10 +44,10 @@ export default function Dashboard() {
             </div>
             <div className={styles.heroInfo}>
               <p className={styles.heroWelcome}>Bon retour,</p>
-              <h1 className={styles.heroName}>{MOCK_USERNAME}</h1>
+              <h1 className={styles.heroName}>{storedUsername}</h1>
               <div className={styles.heroBadge}>
                 <span className={styles.heroDot} />
-                Connecté · Paris-01
+                Connecté
               </div>
               <p className={styles.heroHint}>Glisse le skin pour le faire tourner</p>
             </div>
@@ -69,11 +65,8 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : (
-              /* Fallback mock quand l'API n'est pas encore branchée */
-              <div className={styles.serversGrid}>
-                {MOCK_SERVERS.map((s) => (
-                  <ServerCard key={s.id} server={s} />
-                ))}
+              <div className={styles.emptyState}>
+                <p className={styles.emptyText}>Aucun serveur disponible — connecte ton infrastructure pour commencer.</p>
               </div>
             )}
           </section>
@@ -81,15 +74,8 @@ export default function Dashboard() {
           {/* Historique */}
           <section className={styles.section}>
             <h2 className={styles.sectionLabel}>Historique de connexions</h2>
-            <div className={styles.historyList}>
-              {MOCK_HISTORY.map((h) => (
-                <div key={h.id} className={styles.historyRow}>
-                  <span className={styles.historyDot} />
-                  <span className={styles.historyServer}>{h.server}</span>
-                  <span className={styles.historyDate}>{formatDate(h.date)}</span>
-                  <span className={styles.historyDuration}>{formatDuration(h.duration)}</span>
-                </div>
-              ))}
+            <div className={styles.emptyState}>
+              <p className={styles.emptyText}>Aucune connexion enregistrée pour l'instant.</p>
             </div>
           </section>
 
@@ -98,9 +84,6 @@ export default function Dashboard() {
     </div>
   )
 }
-
-// --- Sous-composant ServerCard ---
-import type { Server } from '@/hooks/useServers'
 
 function ServerCard({ server }: { server: Server }) {
   const pct = Math.round((server.players / server.maxPlayers) * 100)
@@ -124,11 +107,5 @@ function ServerCard({ server }: { server: Server }) {
   )
 }
 
-const MOCK_SERVERS: Server[] = [
-  { id: 1, name: 'Paris-01',     region: 'Île-de-France',       players: 143, maxPlayers: 200, online: true },
-  { id: 2, name: 'Lyon-02',      region: 'Auvergne-Rhône',      players: 90,  maxPlayers: 200, online: true },
-  { id: 3, name: 'Marseille-03', region: 'PACA',                players: 182, maxPlayers: 200, online: true },
-  { id: 4, name: 'Bordeaux-04',  region: 'Nouvelle-Aquitaine',  players: 60,  maxPlayers: 200, online: true },
-  { id: 5, name: 'Lille-05',     region: 'Hauts-de-France',     players: 110, maxPlayers: 200, online: true },
-  { id: 6, name: 'Nantes-06',    region: 'Pays de la Loire',    players: 40,  maxPlayers: 200, online: true },
-]
+// Re-export pour éviter l'erreur d'import inutilisé
+export { formatDate, formatDuration }

@@ -1,14 +1,23 @@
-import { useState, FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, FormEvent, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { login } from '@/lib/api'
 import styles from './Login.module.css'
 
+const BACKEND_URL = 'http://localhost:8080'
+
 export default function Login() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  // Affiche une erreur si Microsoft a renvoyé ?error=...
+  useEffect(() => {
+    const err = searchParams.get('error')
+    if (err) setError('Erreur de connexion Microsoft : ' + err)
+  }, [searchParams])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -24,6 +33,10 @@ export default function Login() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleMicrosoftLogin = () => {
+    window.location.href = `${BACKEND_URL}/api/auth/microsoft`
   }
 
   return (
@@ -64,6 +77,20 @@ export default function Login() {
             {loading ? 'Connexion…' : 'Se connecter'}
           </button>
         </form>
+
+        <div className={styles.divider}>
+          <span>ou</span>
+        </div>
+
+        <button className={styles.btnMicrosoft} onClick={handleMicrosoftLogin} type="button">
+          <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="9" height="9" fill="#F25022"/>
+            <rect x="11" y="1" width="9" height="9" fill="#7FBA00"/>
+            <rect x="1" y="11" width="9" height="9" fill="#00A4EF"/>
+            <rect x="11" y="11" width="9" height="9" fill="#FFB900"/>
+          </svg>
+          Se connecter avec Microsoft
+        </button>
       </div>
     </div>
   )

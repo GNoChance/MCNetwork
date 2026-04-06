@@ -80,3 +80,32 @@
   color: var(--warn);
   border: 0.5px solid rgba(251, 146, 60, 0.3);
 }
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 32px;
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+
+.emptyTitle {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.emptyText {
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 300px;
+  line-height: 1.6;
+}

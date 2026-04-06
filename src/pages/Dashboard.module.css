@@ -251,3 +251,16 @@
   min-width: 48px;
   text-align: right;
 }
+
+.emptyState {
+  padding: 24px;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.emptyText {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
