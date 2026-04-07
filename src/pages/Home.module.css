@@ -76,6 +76,35 @@
   box-shadow: 0 0 10px var(--accent);
 }
 
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.navLink {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  border: 0.5px solid transparent;
+  transition: all 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  border-color: var(--border);
+}
+
+.navLinkActive {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-color: var(--accent-border);
+}
+
 .navRight {
   display: flex;
   align-items: center;

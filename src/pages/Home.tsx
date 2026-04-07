@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, NavLink } from 'react-router-dom'
 import { PlayerSkin3D } from '@/components/skin/PlayerSkin3D'
 import { Spotlight } from '@/components/ui/Spotlight'
 import styles from './Home.module.css'
@@ -31,6 +31,15 @@ export default function Home() {
         <div className={styles.navLogo}>
           <span className={styles.logoDot} />
           MCNetwork
+        </div>
+
+        <div className={styles.navLinks}>
+          <NavLink to="/servers" className={({ isActive }) => `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}>
+            Serveurs
+          </NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}>
+            Contact
+          </NavLink>
         </div>
 
         {username ? (

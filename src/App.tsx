@@ -5,6 +5,7 @@ import Callback from '@/pages/Callback'
 import Dashboard from '@/pages/Dashboard'
 import Servers from '@/pages/Servers'
 import History from '@/pages/History'
+import Contact from '@/pages/Contact'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/servers" element={<Servers />} />
         <Route path="/history" element={<History />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

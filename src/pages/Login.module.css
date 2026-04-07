@@ -1,30 +1,74 @@
+/* ─── Layout split-screen ─────────────────────────────────────── */
 .page {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   background: var(--bg-base);
-  padding: 24px;
 }
 
-.card {
-  width: 100%;
-  max-width: 380px;
-  background: var(--bg-surface);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 36px 32px;
-  animation: fadeUp 0.35s ease both;
+@media (max-width: 768px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
 }
 
-.logo {
+/* ─── Panneau gauche — visuel ─────────────────────────────────── */
+.visual {
+  position: relative;
+  background: #060608;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 48px;
+  border-right: 0.5px solid var(--border);
+  animation: fadeUp 0.4s ease both;
+}
+
+/* Grid background */
+.visualGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* Glow vert */
+.visualGlow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.visualContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0;
+}
+
+/* Logo */
+.visualLogo {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-display);
   font-size: 13px;
   color: var(--text-secondary);
-  margin-bottom: 28px;
+  margin-bottom: auto;
+  transition: color 0.15s;
+}
+
+.visualLogo:hover {
+  color: var(--text-primary);
 }
 
 .logoDot {
@@ -32,6 +76,120 @@
   height: 8px;
   border-radius: 50%;
   background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Hero text */
+.visualHero {
+  margin-top: auto;
+  margin-bottom: 40px;
+}
+
+.visualTitle {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.visualAccent {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #86efac 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.visualSubtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+/* Feature list */
+.featureList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.featureIcon {
+  color: var(--accent);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* Footer badges */
+.visualFooter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.statBadge {
+  font-family: var(--font-display);
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 0.5px solid var(--accent-border);
+  border-radius: 999px;
+  padding: 4px 10px;
+  letter-spacing: 0.04em;
+}
+
+/* Hide visual panel on mobile */
+@media (max-width: 768px) {
+  .visual {
+    display: none;
+  }
+}
+
+/* ─── Panneau droit — formulaire ──────────────────────────────── */
+.formSide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--bg-base);
+  animation: fadeUp 0.4s ease 0.1s both;
+}
+
+.card {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile logo (only shown when visual is hidden) */
+.mobileLogo {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .mobileLogo {
+    display: flex;
+  }
 }
 
 .title {
@@ -39,16 +197,18 @@
   font-size: 22px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 6px;
   letter-spacing: -0.02em;
+  margin-bottom: 6px;
 }
 
 .subtitle {
   font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 28px;
+  margin-bottom: 32px;
+  line-height: 1.6;
 }
 
+/* ─── Form ────────────────────────────────────────────────────── */
 .form {
   display: flex;
   flex-direction: column;
@@ -62,8 +222,10 @@
 }
 
 .label {
-  font-size: 12px;
+  font-family: var(--font-display);
+  font-size: 11px;
   color: var(--text-secondary);
+  letter-spacing: 0.04em;
 }
 
 .input {
@@ -75,12 +237,13 @@
   font-size: 13px;
   padding: 10px 12px;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
   width: 100%;
 }
 
 .input:focus {
-  border-color: var(--border-hover);
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
 .input::placeholder {
@@ -90,36 +253,63 @@
 .error {
   font-size: 12px;
   color: #f87171;
+  padding: 8px 10px;
+  background: rgba(248, 113, 113, 0.08);
+  border: 0.5px solid rgba(248, 113, 113, 0.2);
+  border-radius: var(--radius-sm);
 }
 
-.btn {
-  background: var(--accent-dim);
-  border: 0.5px solid var(--accent-border);
+/* ─── Buttons ─────────────────────────────────────────────────── */
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px;
+  background: var(--accent);
+  border: none;
   border-radius: var(--radius-sm);
-  color: var(--accent);
+  color: #030803;
   font-family: var(--font-display);
   font-size: 13px;
-  padding: 10px;
-  transition: all 0.15s;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: opacity 0.15s, box-shadow 0.15s;
   margin-top: 4px;
 }
 
-.btn:hover:not(:disabled) {
-  background: rgba(74, 222, 128, 0.25);
+.btnPrimary:hover:not(:disabled) {
+  opacity: 0.88;
+  box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
 }
 
-.btn:disabled {
-  opacity: 0.5;
+.btnPrimary:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
+.spinner {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid rgba(3, 8, 3, 0.3);
+  border-top-color: #030803;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Divider ─────────────────────────────────────────────────── */
 .divider {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 20px 0 0;
+  margin: 20px 0;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .divider::before,
@@ -136,19 +326,33 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
-  margin-top: 12px;
   padding: 10px;
   background: transparent;
   border: 0.5px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
   font-family: var(--font-display);
-  font-size: 13px;
-  cursor: pointer;
+  font-size: 12px;
   transition: all 0.15s;
 }
 
 .btnMicrosoft:hover {
   background: var(--bg-elevated);
   border-color: var(--border-hover);
+}
+
+/* ─── Back link ───────────────────────────────────────────────── */
+.backLink {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.link {
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+
+.link:hover {
+  color: var(--text-secondary);
 }
