@@ -47,7 +47,9 @@ export default function Login() {
           MCNetwork
         </div>
         <h1 className={styles.title}>Connexion</h1>
-        <p className={styles.subtitle}>Entre ton pseudo Minecraft et ton mot de passe</p>
+        <p className={styles.subtitle}>
+          Connecte-toi avec ton compte Microsoft lié à Minecraft
+        </p>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
