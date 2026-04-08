@@ -1,48 +1,54 @@
-/* ─── Layout split-screen ─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   LOGIN — MCNetwork Design System
+   Primary  : #00FF7F  (neon green)
+   BG       : #050505 / #060608
+   Font     : Inter → DM Sans → sans-serif
+   ───────────────────────────────────────────────────────────── */
+
+/* ─── Layout ──────────────────────────────────────────────────── */
 .page {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background: var(--bg-base);
+  background: #050505;
+  font-family: 'Inter', 'DM Sans', sans-serif;
 }
 
-@media (max-width: 768px) {
-  .page {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 800px) {
+  .page { grid-template-columns: 1fr; }
 }
 
-/* ─── Panneau gauche — visuel ─────────────────────────────────── */
+/* ─── Left panel — branding ───────────────────────────────────── */
 .visual {
   position: relative;
   background: #060608;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 40px 48px;
-  border-right: 0.5px solid var(--border);
+  padding: 44px 52px;
+  border-right: 1px solid rgba(0, 255, 127, 0.07);
   animation: fadeUp 0.4s ease both;
 }
 
-/* Grid background */
+/* Subtle 60px grid (matches Home) */
 .visualGrid {
   position: absolute;
   inset: 0;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-size: 60px 60px;
   pointer-events: none;
 }
 
-/* Glow vert */
+/* Radial neon glow — top right */
 .visualGlow {
   position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.09) 0%, transparent 65%);
+  top: -120px;
+  right: -120px;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(0, 255, 127, 0.07) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -52,62 +58,58 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  gap: 0;
 }
 
 /* Logo */
 .visualLogo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: var(--font-display);
+  gap: 9px;
+  font-family: 'Space Mono', monospace;
   font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: auto;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
   transition: color 0.15s;
 }
-
-.visualLogo:hover {
-  color: var(--text-primary);
-}
+.visualLogo:hover { color: rgba(255, 255, 255, 0.85); }
 
 .logoDot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
+  background: #00FF7F;
+  box-shadow: 0 0 10px rgba(0, 255, 127, 0.9);
   animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
-/* Hero text */
+/* Hero text — bottom of left panel */
 .visualHero {
   margin-top: auto;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .visualTitle {
-  font-family: var(--font-display);
-  font-size: clamp(26px, 3vw, 40px);
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.18;
-  letter-spacing: -0.03em;
-  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.07;
+  letter-spacing: -0.035em;
+  margin-bottom: 14px;
 }
 
 .visualAccent {
-  background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #86efac 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00FF7F;
+  text-shadow: 0 0 45px rgba(0, 255, 127, 0.55);
 }
 
 .visualSubtitle {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 320px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.38);
+  line-height: 1.75;
+  max-width: 300px;
 }
 
 /* Feature list */
@@ -115,25 +117,33 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 36px;
+  gap: 11px;
+  margin-bottom: 32px;
 }
 
 .featureItem {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
-  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.36);
 }
 
 .featureIcon {
-  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(0, 255, 127, 0.07);
+  border: 1px solid rgba(0, 255, 127, 0.14);
+  color: #00FF7F;
   font-size: 10px;
   flex-shrink: 0;
 }
 
-/* Footer badges */
+/* Footer status badges */
 .visualFooter {
   display: flex;
   gap: 8px;
@@ -141,78 +151,74 @@
 }
 
 .statBadge {
-  font-family: var(--font-display);
-  font-size: 10px;
-  color: var(--accent);
-  background: var(--accent-dim);
-  border: 0.5px solid var(--accent-border);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #00FF7F;
+  background: rgba(0, 255, 127, 0.07);
+  border: 1px solid rgba(0, 255, 127, 0.18);
   border-radius: 999px;
   padding: 4px 10px;
-  letter-spacing: 0.04em;
 }
 
-/* Hide visual panel on mobile */
-@media (max-width: 768px) {
-  .visual {
-    display: none;
-  }
-}
+@media (max-width: 800px) { .visual { display: none; } }
 
-/* ─── Panneau droit — formulaire ──────────────────────────────── */
+/* ─── Right panel — form ──────────────────────────────────────── */
 .formSide {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 24px;
-  background: var(--bg-base);
-  animation: fadeUp 0.4s ease 0.1s both;
+  background: #050505;
+  animation: fadeUp 0.4s ease 0.08s both;
 }
 
 .card {
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
 }
 
-/* Mobile logo (only shown when visual is hidden) */
+/* Mobile logo (visible only on small screens) */
 .mobileLogo {
   display: none;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-display);
+  font-family: 'Space Mono', monospace;
   font-size: 13px;
-  color: var(--text-secondary);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
   margin-bottom: 32px;
 }
+@media (max-width: 800px) { .mobileLogo { display: flex; } }
 
-@media (max-width: 768px) {
-  .mobileLogo {
-    display: flex;
-  }
-}
-
+/* Title block */
 .title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.96);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   margin-bottom: 6px;
 }
 
 .subtitle {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 32px;
-  line-height: 1.6;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.32);
+  margin-bottom: 28px;
+  line-height: 1.65;
 }
 
-/* ─── Form ────────────────────────────────────────────────────── */
+/* ─── Form fields ─────────────────────────────────────────────── */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .field {
@@ -222,137 +228,166 @@
 }
 
 .label {
-  font-family: var(--font-display);
-  font-size: 11px;
-  color: var(--text-secondary);
-  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .input {
-  background: var(--bg-elevated);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 13px;
-  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Inter', 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  padding: 11px 14px;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
   width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .input:focus {
-  border-color: var(--accent-border);
-  box-shadow: 0 0 0 3px var(--accent-dim);
+  border-color: rgba(0, 255, 127, 0.38);
+  box-shadow: 0 0 0 3px rgba(0, 255, 127, 0.08);
 }
 
-.input::placeholder {
-  color: var(--text-muted);
-}
+.input::placeholder { color: rgba(255, 255, 255, 0.17); }
 
+/* Error banner */
 .error {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #f87171;
-  padding: 8px 10px;
-  background: rgba(248, 113, 113, 0.08);
-  border: 0.5px solid rgba(248, 113, 113, 0.2);
-  border-radius: var(--radius-sm);
+  padding: 10px 13px;
+  background: rgba(248, 113, 113, 0.07);
+  border: 1px solid rgba(248, 113, 113, 0.18);
+  border-radius: 10px;
+  line-height: 1.5;
 }
 
-/* ─── Buttons ─────────────────────────────────────────────────── */
+/* ─── Primary button ──────────────────────────────────────────── */
 .btnPrimary {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
-  padding: 11px;
-  background: var(--accent);
+  margin-top: 6px;
+  padding: 12px;
+  background: #00FF7F;
   border: none;
-  border-radius: var(--radius-sm);
-  color: #030803;
-  font-family: var(--font-display);
-  font-size: 13px;
+  border-radius: 12px;
+  color: #050505;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  transition: opacity 0.15s, box-shadow 0.15s;
-  margin-top: 4px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow:
+    0 0 28px rgba(0, 255, 127, 0.40),
+    0 4px 18px rgba(0, 255, 127, 0.22);
 }
 
 .btnPrimary:hover:not(:disabled) {
-  opacity: 0.88;
-  box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
+  background: #1aff8f;
+  box-shadow:
+    0 0 44px rgba(0, 255, 127, 0.58),
+    0 6px 26px rgba(0, 255, 127, 0.30);
+  transform: translateY(-1px);
 }
+
+.btnPrimary:active:not(:disabled) { transform: translateY(0); }
 
 .btnPrimary:disabled {
-  opacity: 0.6;
+  opacity: 0.48;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Spinner inside button */
 .spinner {
-  width: 13px;
-  height: 13px;
-  border: 1.5px solid rgba(3, 8, 3, 0.3);
-  border-top-color: #030803;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(5, 5, 5, 0.25);
+  border-top-color: #050505;
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+  animation: spin 0.65s linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ─── Divider ─────────────────────────────────────────────────── */
 .divider {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 20px 0;
-  color: var(--text-muted);
-  font-size: 11px;
+  margin: 18px 0;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
 }
 
 .divider::before,
 .divider::after {
   content: '';
   flex: 1;
-  height: 0.5px;
-  background: var(--border);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
+/* ─── Microsoft OAuth button ──────────────────────────────────── */
 .btnMicrosoft {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 10px;
+  padding: 11px;
   background: transparent;
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.62);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
   transition: all 0.15s;
 }
 
 .btnMicrosoft:hover {
-  background: var(--bg-elevated);
-  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.88);
 }
 
-/* ─── Back link ───────────────────────────────────────────────── */
+/* ─── Bottom links ────────────────────────────────────────────── */
 .backLink {
-  margin-top: 28px;
+  margin-top: 20px;
   text-align: center;
 }
 
 .link {
-  font-size: 12px;
-  color: var(--text-muted);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  text-decoration: none;
   transition: color 0.15s;
 }
+.link:hover { color: rgba(255, 255, 255, 0.58); }
 
-.link:hover {
-  color: var(--text-secondary);
+/* "Pas encore de compte ?" line */
+.registerLine {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.28);
 }
+
+.registerLink {
+  color: #00FF7F;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.registerLink:hover { opacity: 0.72; }

@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react'
+import { Header } from '@/components/layout/Header'
 import styles from './Contact.module.css'
 
 type FormState = {
@@ -100,6 +101,7 @@ export default function Contact() {
 
   return (
     <div className={styles.page}>
+      <Header />
       {/* Background grid */}
       <div className={styles.grid} aria-hidden="true" />
 
